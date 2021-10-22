@@ -6,7 +6,7 @@ void ArbolRN::insertar()
 	int z = 0;
 	cout << "\n Entre el valor del nodo para ingresar:";
 	cin >> z;
-	Nodo* p, * q; //objetos de la clase nodo.
+	Nodo * p, * q; //objetos de la clase nodo.
 	Nodo* t = new (Nodo);
 	//usamos t para ingresar los valores del nodo.
 	t->valor = z;
@@ -27,16 +27,16 @@ void ArbolRN::insertar()
 	else
 	{
 		// si la raiz no esta vacia 
-		while (p!=NULL)
+		while (p != NULL)
 		{
 			//cargamos p en q.
 			q = p;
 			//si el valor ingresado es mayor ira a la derecha.
-			if(p->valor<t->valor){
+			if(p->valor < t->valor){
 				p = p->derecho;}
 			//caso contraio a la izquierda.
 			else
-			{p = p->izquierdo;}
+			p = p->izquierdo;
 		}
 			//cargamos "q" como antecesor (padre) de "t".
 			t->antecesor = q;
@@ -56,19 +56,19 @@ void ArbolRN::acomodar(Nodo*t)
 	Nodo* u; //creamos otro objeto de la clase nodo.
 	//si la raiz es igual al nodo recibido el color sera negro.
 	//la raiz siempre debe ser negra.
-	if (raiz=t)
+	if (raiz == t)
 	{
 		t->color = 'n';
 		return;
 	}
 	//mientras que el antecesor no este vacio y el antecesor sea de color rojo
 	// linea de codigo "45" se carga por defecto el color rojo.
-	while (t->antecesor != NULL && t->antecesor->color=='r')
+	while (t->antecesor != NULL && t->antecesor->color =='r')
 	{
 		//creamos otro objeto de ayuda para los abuelos
 		Nodo* g = t->antecesor->antecesor;
 		//si el hijo izquierdo de "g" es igual al padre de "t"
-		if (g->izquierdo==t->antecesor)
+		if (g->izquierdo == t->antecesor)
 		{
 		//si el hijo derecho de "g" no esta vacio
 			if (g->valor!=NULL)
@@ -76,7 +76,7 @@ void ArbolRN::acomodar(Nodo*t)
 				//Cargamos el hijo derecho de "g" en "u".
 				u = g->derecho;
 				//preguntamos si el color de "u" es rojo.
-				if (u->color=='r')
+				if (u->color == 'r')
 				{
 					//cambiamos el color de su padre a negro.
 					//no pueden haber 2 nodos rojos seguidos.
@@ -89,8 +89,8 @@ void ArbolRN::acomodar(Nodo*t)
 			// si el hijo derecho de "g" esta vacio 
 			else
 			{
-				//si el hijo derecho de "t" es igual a x"t"
-				if (t->antecesor->derecho==t)
+				//si el hijo derecho de "t" es igual a "t"
+				if (t->antecesor->derecho == t)
 				{
 					//cargamos el padre de "t" y llamamos al metodo "rotarIzquierda"
 					t = t->antecesor;
@@ -107,12 +107,12 @@ void ArbolRN::acomodar(Nodo*t)
 		else
 		{
 			// si el hijo izquierdo de "g" no esta vacio 
-			if (g->izquierdo!= NULL)
+			if (g->izquierdo != NULL)
 			{
 				//cargamos el hijo izquierdo de "g" en "u".
 				u = g->izquierdo;
 				// si el color de "u" es rojo
-				if(u->color== 'r'){
+				if(u->color == 'r'){
 				// el padre de "t" sera negro
 					t->antecesor->color = 'n';
 					u->color = 'n';// color de u cambia a negro.
@@ -124,7 +124,7 @@ void ArbolRN::acomodar(Nodo*t)
 			else
 			{
 				//si el hijo izquierdo del padre de "t" es igual a "t".
-				if (t->antecesor->izquierdo== t)
+				if (t->antecesor->izquierdo == t)
 				{
 					//cargamos el padre de "t".
 					t = t->antecesor;
@@ -148,13 +148,12 @@ void ArbolRN::rotarIzquierda(Nodo*p)
 	else
 	{
 		Nodo* y = p->derecho; //carga la estructura del hijo derecho de "p" en "y".
-		if (y->izquierdo!= NULL)// si y tiene hijo izquierdo.
+		if (y->izquierdo != NULL)// si y tiene hijo izquierdo.
 		{
 			p->derecho = y->izquierdo; // carga el hijo izquierdo de "y" en el hijo derecho de "p"
 			y->izquierdo->antecesor = p;//carga p en y .
 		}
 		else
-		
 			p->derecho = NULL;//p no tiene hijo derecho.
 			if (p->antecesor != NULL)// si p tiene padre
 				y->antecesor = p->antecesor; //carga el padre de p en el padre de y.
@@ -176,7 +175,7 @@ void ArbolRN::rotarIzquierda(Nodo*p)
 void ArbolRN::rotarDerecha(Nodo* p)
 {
 	//verifica sino tiene hijo izquierdo.
-	if (p->derecho == NULL)
+	if (p->izquierdo == NULL)
 		return;
 	else
 	{
@@ -195,7 +194,7 @@ void ArbolRN::rotarDerecha(Nodo* p)
 		raiz = y; //carga y en la raiz.
 	else
 	{
-		if (p ==p->antecesor->izquierdo)// si p es el hijo izquierdo de su padre
+		if (p == p->antecesor->izquierdo)// si p es el hijo izquierdo de su padre
 			p->antecesor->izquierdo = y;// carga  y en p siendo este el hijo izquierdo.
 		else
 			p->antecesor->derecho = y;// carga y en p siendo este el hijo derecho.
@@ -245,7 +244,7 @@ void ArbolRN::mostarArbol(Nodo*p)
 			cout << "\n  Antecesor:"<<p->antecesor->valor;// muestra a su padre.
 		else
 			cout << "\n Raiz:";
-		if(p->izquierdo!=NULL)//muestra el hijo izquierdo
+		if(p->izquierdo != NULL)//muestra el hijo izquierdo
 			cout << "\n Hijo Izquierdo:"<<p->izquierdo->valor;
 		if (p->derecho != NULL)//muestra el hijo derecho
 			cout << "\n Hijo Derecho:" << p->derecho->valor;
