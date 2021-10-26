@@ -1,11 +1,13 @@
 #include "ArbolRN.h"
+#include <iostream>
+#include <string>
 
-void ArbolRN::insertar()
+bool ArbolRN::insertar(int z)
 {
 	//iniciamos el valor entero "z" para ingresar un valor al nodo.
-	int z = 0;
-	cout << "\n Entre el valor del nodo para ingresar:";
-	cin >> z;
+	//int z = 0;
+	//cout << "\n Entre el valor del nodo para ingresar:";
+	//cin >> z;
 	Nodo * p, * q; //objetos de la clase nodo.
 	Nodo* t = new (Nodo);
 	//usamos t para ingresar los valores del nodo.
@@ -49,9 +51,34 @@ void ArbolRN::insertar()
 	//llamamos al metodo acomodar  para crear el arbol cumpliendo las reglas.
 	//enviamos objrto t
 	acomodar(t);
+	return true;
 }
 
-void ArbolRN::acomodar(Nodo*t)
+
+/*bool ArbolRN::insertarElemento(int pValor) {
+		bool insercion = insertar(pValor);
+		return true;}
+*/
+bool ArbolRN::insertarElemento(int pValor) {
+	bool existe = existeElemento(pValor);
+
+	if (!existe) {
+		bool insercion = insertar(pValor);
+	}
+
+	else {
+		return false;
+	}
+}
+
+bool ArbolRN::existeElemento(int pValor) {
+	if (valor == 0) {
+		return false;
+	}
+	return true;
+}
+
+bool ArbolRN::acomodar(Nodo*t)
 {
 	Nodo* u; //creamos otro objeto de la clase nodo.
 	//si la raiz es igual al nodo recibido el color sera negro.
@@ -59,7 +86,7 @@ void ArbolRN::acomodar(Nodo*t)
 	if (raiz == t)
 	{
 		t->color = 'n';
-		return;
+		return true;///// quitarrrrrr ESOOOOOOOOOOO
 	}
 	//mientras que el antecesor no este vacio y el antecesor sea de color rojo
 	// linea de codigo "45" se carga por defecto el color rojo.
@@ -138,6 +165,7 @@ void ArbolRN::acomodar(Nodo*t)
 		}
 		raiz->color = 'n';// la raiz siempre tiene que ser negra.
 	}
+	return true;
 }
 
 void ArbolRN::rotarIzquierda(Nodo*p)
@@ -320,5 +348,54 @@ void ArbolRN::buscar()
 		if (p->derecho != NULL)
 			cout << "\n Hijo Derecho: " << p->derecho->valor;// muestra el hijo derecho.
 		cout << endl;
+	}
+}
+
+
+
+string ArbolRN::preOrden() {
+	return preOrdenRecursivo(raiz);
+}
+string ArbolRN::preOrdenRecursivo(Nodo* nodo) {
+	string preorden;
+	if (nodo != nullptr) {
+		preorden = to_string(nodo->valor) + " - ";
+		preorden += preOrdenRecursivo(nodo->izquierdo);
+		preorden += preOrdenRecursivo(nodo->derecho);
+	}
+	return preorden;
+}
+
+string ArbolRN::inOrdenRecursivo(Nodo* nodo) {
+	string inOrden;
+	if (nodo != nullptr) {
+		inOrden = inOrdenRecursivo(nodo->izquierdo);
+		inOrden += to_string(nodo->valor) + " - ";
+		inOrden += inOrdenRecursivo(nodo->derecho);
+	}
+	return inOrden;
+}
+string ArbolRN::inOrden() {
+	return inOrdenRecursivo(raiz);
+}
+string ArbolRN::postOrden() {
+	return postOrdenRecursivo(raiz);
+}
+
+string ArbolRN::postOrdenRecursivo(Nodo* nodo) {
+	string postOrden;
+	if (nodo != nullptr) {
+		postOrden = postOrdenRecursivo(nodo->izquierdo);
+		postOrden += postOrdenRecursivo(nodo->derecho);
+		postOrden += to_string(nodo->valor) + " - ";
+	}
+	return postOrden;
+}
+bool ArbolRN::esVacioARN() {
+	if( valor == 0) {
+		return true;
+	}
+	else {
+		return false;
 	}
 }

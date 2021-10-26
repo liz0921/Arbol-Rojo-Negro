@@ -140,12 +140,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ArbolRN.cpp" />
-    <ClCompile Include="ARN.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Gestor.cpp" />
     <ClCompile Include="Nodo.cpp" />
+    <ClCompile Include="Validar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArbolRN.h" />
+    <ClInclude Include="Gestor.h" />
     <ClInclude Include="Nodo.h" />
+    <ClInclude Include="Validar.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
